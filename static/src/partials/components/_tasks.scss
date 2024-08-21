@@ -1,0 +1,42 @@
+.task-board {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--value-4);
+
+    .task-column {
+        background-color: var(--color-light-main);
+        padding: var(--value-3);
+        border-radius: var(--value-1);
+        box-shadow: 0 var(--value-2) var(--value-4) rgba(0, 0, 0, 0.1);
+
+        .column-title {
+            margin-bottom: var(--value-4);
+        }
+
+        .task-card {
+            background-color: var(--color-white-main);
+            color: var(--color-grey-main);
+            padding: var(--value-4);
+            border-radius: var(--value-2);
+            margin-bottom: var(--value-4);
+            
+            .task-title {
+                color: var(--color-black-main);
+                font-size: var(--value-5);
+                font-weight: 500;
+                margin-bottom: var(--value-2);
+            }
+
+            .task-info {
+                font-size: var(--value-4);
+                margin-bottom: var(--value-1);
+                display: flex;
+                align-items: center;
+            
+                i {
+                    margin-right: var(--value-2);
+                }
+            }
+        }
+    }
+}

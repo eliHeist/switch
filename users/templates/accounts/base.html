@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block two %}
+{% block head %}{% endblock %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+    let active_link = '#people_link'
+</script>
+{% block more_scripts %}{% endblock %}
+{% endblock scripts %}
+
+{% block slot2 %}
+{% block content %}{% endblock content %}
+{% endblock slot2 %}

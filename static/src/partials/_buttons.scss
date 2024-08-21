@@ -1,0 +1,78 @@
+$colors: "primary" "secondary" "accent" "danger" "success" "warning" "black" "white" "grey" "light";
+
+.btn{
+    padding: var(--value-2) var(--value-4);
+    border-radius: var(--value-1);
+    width: max-content;
+    text-decoration: none;
+    transition: transform 300ms cubic-bezier(0.165, 0.84, 0.44, 1);
+    font-weight: 500;
+
+    display: flex;
+    gap: var(--value-4);
+
+    &:hover{
+        transform: scale(1.05);
+        filter: contrast(1.75);
+    }
+
+    &.full{
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+.btn-outline{
+    @extend .btn;
+    outline-style: solid;
+    outline-width: 1px;
+}
+
+.badge{
+    padding: var(--value-1) var(--value-2);
+    border-radius: var(--value-1);
+    width: max-content;
+    height: fit-content;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: var(--value-3);
+    font-weight: 500;
+
+    display: flex;
+    gap: var(--value-2);
+    align-items: center;
+    align-content: center;
+
+    transition: all 300ms cubic-bezier(0.165, 0.84, 0.44, 1);
+
+    &:hover{
+        filter: contrast(1.25);
+    }
+}
+
+@each $color in $colors {
+    .btn-#{$color} {
+        @extend .btn;
+        color: var(--color-#{$color}-fg);
+        fill: var(--color-#{$color}-fg);
+        background-color: var(--color-#{$color}-main);
+    }
+    .btn-outline-#{$color} {
+        @extend .btn-outline;
+        color: var(--color-#{$color}-main);
+        fill: var(--color-#{$color}-main);
+        border-color: var(--color-#{$color}-main);
+
+        &:hover{
+            background-color: var(--color-#{$color}-fg);
+        }
+    }
+
+    .badge-#{$color} {
+        @extend .badge;
+        color: var(--color-#{$color}-fg);
+        fill: var(--color-#{$color}-fg);
+        background-color: var(--color-#{$color}-main);
+    }
+}
+

@@ -1,0 +1,52 @@
+$colors: (
+    "primary": (
+        main: rgb(89, 31, 96),
+        fg: rgb(236, 226, 237)
+    ),
+    "secondary": (
+        main: rgb(153, 66, 111),
+        fg: rgb(243, 235, 239)
+    ),
+    "accent": (
+        main: rgb(0, 194, 255),
+        fg: rgb(45, 49, 51)
+    ),
+    "danger": (
+        main: rgb(227, 17, 17),
+        fg: rgb(225, 205, 205)
+    ),
+    "success": (
+        main: rgb(0, 136, 68),
+        fg: rgb(225, 235, 230)
+    ),
+    "warning": (
+        main: rgb(255, 153, 0),
+        fg: rgb(238, 233, 226)
+    ),
+    "black": (
+        main: rgb(32, 29, 33),
+        fg: rgb(239, 232, 241)
+    ),
+    "white": (
+        main: rgb(254, 254, 254),
+        fg: rgb(33, 32, 33)
+    ),
+    "grey": (
+        main: rgb(114, 103, 115),
+        fg: rgb(233, 208, 233)
+    ),
+    "light": (
+        main: rgb(222, 205, 223),
+        fg: rgb(70, 63, 70)
+    ),
+);
+
+:root{
+
+    @each $color, $variations in $colors{
+        $count: 0;
+        @each $variation, $value in $variations{
+            --color-#{$color}-#{$variation}: #{$value};
+        }
+    }
+}

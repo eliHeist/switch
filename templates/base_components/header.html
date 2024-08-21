@@ -1,0 +1,46 @@
+{% load static %}
+
+<div x-data="{
+    show_nav: false
+}">
+    <header class="top-header">
+        <div class="left">
+            <button class="icon" @click="show_nav=true"><i class="fas fa-bars"></i></button>
+            <h1>Switch Consults</h1>
+        </div>
+        <div class="center">
+            <input type="text" placeholder="Search resources, services, and docs (G+/)">
+        </div>
+        <div class="right">
+            <!-- <button class="icon"><i class="fas fa-envelope"></i></button> -->
+            <button class="icon"><i class="far fa-bell"></i></button>
+            <button class="icon"><i class="fas fa-cog"></i></button>
+            <button class="icon"><i class="far fa-question-circle"></i></button>
+            <div class="profile">
+                <span>{{ request.user.email }}</span>
+                <img src="{% static 'images/default-profile-pic.webp' %}" alt="Profile">
+                <!-- <span>DEFAULT DIRECTORY</span> -->
+            </div>
+        </div>
+    </header>
+    
+    <nav class="main_navbar" x-bind:class="show_nav ? 'expanded' : ''">
+        <button @click="show_nav=false">
+            <i class="fas fa-bars"></i>
+        </button>
+        <ul>
+            <a href="/">
+                <div class="icon">
+                    <i class="fas fa-house"></i>
+                </div> 
+                <span>Home</span>
+            </a>
+            <a href="#" @click="show_nav=false" hx-get="{% url 'tasks:task-list' %}" hx-target="div.page_content" hx-swap="innerHTML">
+                <div class="icon">
+                    <i class="fas fa-list"></i>
+                </div> 
+                <span>Tasks</span>
+            </a>
+        </ul>
+    </nav>
+</div>

@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Switch Consults</title>
+    
+    <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'dist/bundle.css' %}">
+    <link rel="icon" href="{% static 'images/favicon.webp' %}">
+    {% block one %}{% endblock %}
+</head>
+
+<body>
+    {% block slot %}{% endblock slot %}
+</body>
+
+</html>

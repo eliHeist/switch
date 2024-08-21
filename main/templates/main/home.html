@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+
+{% block slot2 %}
+<div class="bg-white">
+    <div class="container mx-auto px-2">
+        <section class="p-8">
+            <!-- Azure Services -->
+            <div class="azure-services mb-8">
+                <h2 class="section-title">Azure services</h2>
+                <div class="services-grid">
+                    {% if perms.tasks.view_task %}
+                    <a href="#" hx-get="{% url 'tasks:task-list' %}" hx-target="div.page_content" hx-swap="innerHTML">
+                        <div class="service-item">
+                            <button class="text-primary"><i class="fa-solid fa-list-check"></i></button>
+                            <p>Tasks</p>
+                        </div>
+                    </a>
+                    {% endif %}
+                    <div class="service-item">
+                        <i class="fas fa-database text-primary"></i>
+                        <p>Storage accounts</p>
+                    </div>
+                    <div class="service-item">
+                        <i class="fas fa-database text-primary"></i>
+                        <p>Azure Database for PostgreSQL</p>
+                    </div>
+                    <div class="service-item">
+                        <i class="fas fa-coins text-primary"></i>
+                        <p>Cost Management</p>
+                    </div>
+                    <div class="service-item">
+                        <i class="fas fa-server text-primary"></i>
+                        <p>Virtual machines</p>
+                    </div>
+                    <div class="service-item">
+                        <i class="fas fa-folder-open text-primary"></i>
+                        <p>Resource groups</p>
+                    </div>
+                    <div class="service-item">
+                        <i class="fas fa-cogs text-primary"></i>
+                        <p>App Services</p>
+                    </div>
+                    <div class="service-item">
+                        <i class="fas fa-database text-primary"></i>
+                        <p>SQL databases</p>
+                    </div>
+                    <div class="service-item">
+                        <i class="fas fa-server text-primary"></i>
+                        <p>SQL servers</p>
+                    </div>
+                    <div class="service-item">
+                        <i class="fas fa-arrow-right text-primary"></i>
+                        <p>More services</p>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Resources -->
+            <div class="resources mb-8">
+                <h2 class="section-title">Resources</h2>
+                <div class="tab-buttons">
+                    <button class="active-tab">Recent</button>
+                    <button>Favorite</button>
+                </div>
+                <div class="resources-table bg-white rounded shadow">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Last Viewed</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><i class="fas fa-database text-blue"></i> mbfsystem</td>
+                                <td>Storage account</td>
+                                <td>2 months ago</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-key text-yellow"></i> pay-as-you-go</td>
+                                <td>Subscription</td>
+                                <td>7 months ago</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-database text-blue"></i> amartislab</td>
+                                <td>Storage account</td>
+                                <td>9 months ago</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-folder-open text-blue"></i> DefaultResourceGroup-CUS</td>
+                                <td>Resource group</td>
+                                <td>9 months ago</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-folder-open text-blue"></i> vectorapp</td>
+                                <td>Resource group</td>
+                                <td>3 years ago</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="see-all">See all</div>
+                </div>
+            </div>
+    
+            <!-- Navigation -->
+            <div class="navigate mb-8">
+                <h2 class="section-title">Navigate</h2>
+                <div class="nav-items">
+                    <div class="nav-item">
+                        <i class="fas fa-key text-yellow"></i>
+                        <p>Subscriptions</p>
+                    </div>
+                    <div class="nav-item">
+                        <i class="fas fa-folder-open text-blue"></i>
+                        <p>Resource groups</p>
+                    </div>
+                    <div class="nav-item">
+                        <i class="fas fa-th text-green"></i>
+                        <p>All resources</p>
+                    </div>
+                    <div class="nav-item">
+                        <i class="fas fa-chart-line text-green"></i>
+                        <p>Dashboard</p>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Tools -->
+            <div class="tools">
+                <h2 class="section-title">Tools</h2>
+                <div class="tool-items">
+                    <div class="tool-item">
+                        <i class="fas fa-graduation-cap text-blue"></i>
+                        <p>Microsoft Learn</p>
+                        <small>Learn Azure with free online training from Microsoft</small>
+                    </div>
+                    <div class="tool-item">
+                        <i class="fas fa-eye text-blue"></i>
+                        <p>Azure Monitor</p>
+                        <small>Monitor your apps and infrastructure</small>
+                    </div>
+                    <div class="tool-item">
+                        <i class="fas fa-shield-alt text-green"></i>
+                        <p>Microsoft Defender for Cloud</p>
+                        <small>Secure your apps and infrastructure</small>
+                    </div>
+                    <div class="tool-item">
+                        <i class="fas fa-coins text-green"></i>
+                        <p>Cost Management</p>
+                        <small>Analyze and optimize your cloud spend for free</small>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+{% endblock slot2 %}

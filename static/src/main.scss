@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "./partials/colors";
+@import "./partials/utilities";
+@import "./partials/variables";
+@import "./partials/mixins";
+@import "./partials/buttons";
+@import "./partials/tables";
+@import "./partials/forms";
+
+@import "./partials/components/header";
+@import "./partials/components/home";
+@import "./partials/components/tasks";
+
+html{
+    height: 100vh;
+    width: 100vw;
+}
+
+body {
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+    
+    background-image: url("./images/background.webp");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+    font-family: "Inter", sans-serif;
+    font-size: .9rem;
+    color: var(--color-black);
+
+    .page_wrapper{
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        flex-direction: column;
+
+        .page_content{
+            flex: 1;
+            overflow-y: auto;
+        }
+    }
+}
+
+::selection {
+    color: var(--color-white-main);
+    background-color: var(--color-primary-main);
+}
+

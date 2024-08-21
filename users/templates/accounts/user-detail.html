@@ -1,0 +1,198 @@
+{% extends 'accounts/base.html' %} {% load static custom_filters tailwind_filters %}
+
+
+{% block head %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+{% endblock %}
+
+{% block content %}
+
+<div class="h-screen grid content-start">
+
+    <header title="User Actions" class="page_header">
+        <div class="flex gap-2 items-center w-max">
+            <span class="font-bold text-2xl text-grey-600 dark:text-grey-500">Profile</span>
+            {% if request.user == user %}
+            <a href="{% url 'accounts:logout' %}" class="btn">
+                <i class="fas fa-lock"></i>
+                Logout
+            </a>
+            {% endif %}
+            {% if perms.salary.add_wage %}
+            <a href="{% url 'salary:wage-management' user.pk %}" class="btn">
+                <i class="fa-solid fa-circle-dollar-to-slot"></i> Wage Management</a>
+            {% endif %}
+        </div>
+    </header>
+
+    <main class="scroll-container">
+        <div>
+            <div class="grid sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 flex-wrap gap-4">
+                <div class="bg-white dark:bg-grey-900 rounded-md overflow-auto gap-2 flex flex-wrap">
+                    <img src="{{ user.profile_picture.url }}" alt=""
+                        class="rounded-sm object-cover max-h-[20rem] w-full">
+                    <div class="p-4 grid content-center">
+                        <div class="flex gap-4 mb-4">
+                            <div class="">
+                                <h1 class="">Name: <span class="font-semibold">
+                                        {{ user.get_full_name }}</span>
+                                </h1>
+                                <p>Username: <span class="font-semibold">{{ user.username }}</span></p>
+                                <p>Last login:
+                                    <span class="font-semibold">{{ user.last_login }}</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 items-center">
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:{{ user.email }}" class="hover:text-primary">{{ user.email }}</a>
+                        </div>
+                        <div class="flex gap-4 items-center">
+                            <i class="fas fa-phone"></i>
+                            <div class="flex gap-x-4 flex-wrap">
+                                <a href="tel:{{ user.phone_1 }}" class="hover:text-primary">{{ user.phone_1 }}</a>
+                                {% if user.phone_1 %}
+                                <a href="tel:{{ user.phone_2 }}" class="hover:text-primary">{{ user.phone_1 }}</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="rounded-md flex-1 xl:col-span-2 2xl:col-span-3">
+                    <div class="flex flex-wrap gap-4">
+                        <button class="icon-card green" @click="$refs.loanForm.showModal()">
+                            <i class="icon fa-solid fa-hand-holding-dollar"></i>
+                            <span>Request a loan</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="grid lg:grid-cols-2 gap-2 mt-2">
+                {% if my_jobcards %}
+                <div>
+                    <main class="table">
+                        <section class="table__header">
+                            <h2>Jobcards</h2>
+                            <div class="input-group">
+                                <input type="search" placeholder="Search Data...">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </div>
+                            <div class="export__file" x-data='{ checked: false }'>
+                                <button id="export-file" class="export__file-btn" title="Export File"
+                                    @click="checked=!checked"></button>
+                                <div class="export__file-options" :class="checked ? 'show' : ''">
+                                    <header>Export As &nbsp; &#10140;</header>
+                                    <button @click="checked=false;toPDF($refs.data_table)">PDF <img
+                                            src="{% static 'images/pdf.png' %}" alt=""></button>
+                                    <button @click="checked=false;downloadJSON($refs.data_table)">JSON <img
+                                            src="{% static 'images/json.png' %}" alt=""></button>
+                                    <button @click="checked=false;downloadCSV($refs.data_table)">CSV <img
+                                            src="{% static 'images/csv.png' %}" alt=""></button>
+                                    <button @click="checked=false;downloadEXCEL($refs.data_table, 'users')">EXCEL <img
+                                            src="{% static 'images/excel.png' %}" alt=""></button>
+                                </div>
+                            </div>
+                        </section>
+                        <section class="table__body">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th># <span class="icon-arrow">&UpArrow;</span></th>
+                                        <th>Car <span class="icon-arrow">&UpArrow;</span></th>
+                                        <th class="hidden sm:table-cell">Date <span class="icon-arrow">&UpArrow;</span>
+                                        </th>
+                                        <th>Status <span class="icon-arrow">&UpArrow;</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for jobcard in my_jobcards %}
+                                    <tr>
+                                        <td class="font-semibold">
+                                            <a href="{% url 'jobcards:detail' jobcard.pk %}">{{ jobcard.jobNumber }}</a>
+                                        </td>
+                                        <td>{{ jobcard.vehicle }}</td>
+                                        <td class="hidden sm:table-cell">{{ jobcard.date }}</td>
+                                        <td>
+                                            {% if jobcard.is_open %}
+                                            <span class="btn-action-sm-green">Open</span>
+                                            {% else %}
+                                            <span class="btn-action-sm-rose">Closed</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </section>
+                    </main>
+                </div>
+                {% endif %}
+
+                {% if work_done %}
+                <div>
+                    <main class="table">
+                        <section class="table__header">
+                            <h2>Tasks</h2>
+                            <div class="input-group">
+                                <input type="search" placeholder="Search Data...">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </div>
+                            <div class="export__file" x-data='{ checked: false }'>
+                                <button id="export-file" class="export__file-btn" title="Export File"
+                                    @click="checked=!checked"></button>
+                                <div class="export__file-options" :class="checked ? 'show' : ''">
+                                    <header>Export As &nbsp; &#10140;</header>
+                                    <button @click="checked=false;toPDF($refs.data_table)">PDF <img
+                                            src="{% static 'images/pdf.png' %}" alt=""></button>
+                                    <button @click="checked=false;downloadJSON($refs.data_table)">JSON <img
+                                            src="{% static 'images/json.png' %}" alt=""></button>
+                                    <button @click="checked=false;downloadCSV($refs.data_table)">CSV <img
+                                            src="{% static 'images/csv.png' %}" alt=""></button>
+                                    <button @click="checked=false;downloadEXCEL($refs.data_table, 'users')">EXCEL <img
+                                            src="{% static 'images/excel.png' %}" alt=""></button>
+                                </div>
+                            </div>
+                        </section>
+                        <section class="table__body">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Description <span class="icon-arrow">&UpArrow;</span></th>
+                                        <th>Jobcard <span class="icon-arrow">&UpArrow;</span></th>
+                                        <th>Date <span class="icon-arrow">&UpArrow;</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for work in work_done %}
+                                    <tr>
+                                        <td class="font-semibold">{{ work.description }}</td>
+                                        <td>
+                                            <a href="{% url 'jobcards:detail' work.jobcard.pk %}">
+                                                {{ work.jobcard.jobNumber }}</a>
+                                        </td>
+                                        <td>{{ work.get_date.date }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </section>
+                    </main>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% include 'base_components/footer.html' %}
+    </main>
+
+    <dialog x-ref="loanForm">
+        <div class="dialog_form">
+            <button class="w-fit p-4 rounded-full mx-auto" @click="$refs.loanForm.close()">
+                <i class="fa-solid fa-xmark text-2xl"></i>
+            </button>
+            {% include 'financing/components/loan_request_form.html' %}
+        </div>
+    </dialog>
+
+</div>
+
+{% endblock content %}

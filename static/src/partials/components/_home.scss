@@ -1,0 +1,44 @@
+.azure-services .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    align-items: start;
+    gap: var(--value-8);
+
+    .service-item {
+        text-align: center;
+
+        i {
+            font-size: var(--value-8);
+        }
+    }
+}
+
+.resources-table {
+    overflow: hidden;
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: var(--value-3);
+        text-align: left;
+        border-bottom: 1px solid var(--color-primary-fg);
+    }
+
+    .see-all {
+        padding: var(--value-3);
+        color: var(--color-primary-main);
+        cursor: pointer;
+    }
+}
+
+.navigate .nav-items, .tools .tool-items {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-item, .tool-item {
+    text-align: center;
+}

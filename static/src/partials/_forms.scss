@@ -1,0 +1,49 @@
+
+.form-group{
+    display: grid;
+    row-gap: var(--value-4);
+    width: 100%;
+    
+    .error_message{
+        color: var(--color-danger-main);
+        font-size: var(--value-3);
+        font-weight: 500;
+    }
+
+    .form-control{
+        display: grid;
+        gap: var(--value-2);
+    
+        .label{
+            font-weight: 500;
+        }
+    
+        .help_text{
+            color: var(--color-grey-main);
+            font-size: var(--value-3);
+            margin-bottom: var(--value-2);
+        }
+    
+        .field{
+            input, select{
+                padding: var(--value-2) var(--value-4);
+                border-radius: var(--value-2);
+                border: var(--color-light-main) 1px solid;
+                width: 100%;
+                font-size: var(--value-4);
+        
+                &:focus, &:focus-within{
+                    outline: none;
+                    border-color: var(--color-grey-main);
+                }
+        
+                optgroup{
+                    option{
+                        padding: var(--value-2) var(--value-2);
+                    }
+                }
+            }
+        }
+    
+    }
+}

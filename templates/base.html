@@ -1,0 +1,88 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block one %}
+{% block two %}{% endblock %}
+{% endblock %}
+
+{% block slot %}
+<div class="page_wrapper">
+    {% include 'base_components/header.html' %}
+    <div class="page_content">
+        {% block slot2 %}{% endblock slot2 %}
+    </div>
+</div>
+
+{% block scripts %}{% endblock scripts %}
+<!-- table functions -->
+<script>
+    let search = document.querySelector('.input-group input'),
+        table_rows = document.querySelectorAll('tbody tr'),
+        table_headings = document.querySelectorAll('thead th');
+
+    function refreshSearchTable() {
+        search = document.querySelector('.input-group input'),
+            table_rows = document.querySelectorAll('tbody tr'),
+            table_headings = document.querySelectorAll('thead th');
+    }
+
+    // 1. Searching for specific data of HTML table
+    if (search) {
+        search.addEventListener('input', searchTable);
+    }
+
+    function searchTable() {
+        refreshSearchTable()
+        console.log(table_rows)
+        table_rows.forEach((row, i) => {
+            let table_data = row.textContent.toLowerCase(),
+                search_data = search.value.toLowerCase();
+
+            row.classList.toggle('hide', table_data.indexOf(search_data) < 0);
+            if (row.classList.contains('hide')) {
+                row.style.height = "1px"
+                row.style.overflow = "hidden"
+            }
+            row.style.setProperty('--delay', i / 25 + 's');
+        })
+
+        // document.querySelectorAll('tbody tr:not(.hide)').forEach((visible_row, i) => {
+        //     visible_row.style.backgroundColor = (i % 2 == 0) ? 'transparent' : '#0000000b';
+        // });
+    }
+
+    // 2. Sorting | Ordering data of HTML table
+    table_headings.forEach((head, i) => {
+        let sort_asc = true;
+        head.onclick = () => {
+            table_headings.forEach(head => head.classList.remove('active'));
+            head.classList.add('active');
+
+            document.querySelectorAll('td').forEach(td => td.classList.remove('active'));
+            table_rows.forEach(row => {
+                row.querySelectorAll('td')[i].classList.add('active');
+            })
+
+            head.classList.toggle('asc', sort_asc);
+            sort_asc = head.classList.contains('asc') ? false : true;
+
+            sortTable(i, sort_asc);
+        }
+    })
+
+    function sortTable(column, sort_asc) {
+        refreshSearchTable();
+        [...table_rows].sort((a, b) => {
+            let first_row = a.querySelectorAll('td')[column].textContent.toLowerCase(),
+                second_row = b.querySelectorAll('td')[column].textContent.toLowerCase();
+
+            return sort_asc ? (first_row < second_row ? 1 : -1) : (first_row < second_row ? -1 : 1);
+        })
+            .map(sorted_row => document.querySelector('tbody').appendChild(sorted_row));
+    }
+
+</script>
+
+<script src="{% static 'js/global.js' %}"></script>
+<script src="{% static 'dist/bundle.js' %}"></script>
+{% endblock slot %}

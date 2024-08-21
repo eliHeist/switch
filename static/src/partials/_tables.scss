@@ -1,0 +1,39 @@
+
+table.main-table{
+    width: 100%;
+    border-collapse: collapse;
+    
+    th, td {
+        text-align: left;
+        padding: var(--value-2) var(--value-4);
+        
+        &.right{
+            text-align: right;
+        }
+    }
+
+    thead {
+        background-color: var(--color-primary-fg);
+        color: var(--color-light-fg);
+        text-transform: uppercase;
+    }
+    
+    tbody{
+        tr{
+            background-color: var(--color-white-main);
+            color: var(--color-light-fg);
+            border-top: 1px solid var(--color-primary-fg);
+
+            transition: background-color 500ms cubic-bezier(0.075, 0.82, 0.165, 1);
+
+            &:hover{
+                background-color: var(--color-primary-fg);
+            }
+
+            td{
+                padding: var(--value-3) var(--value-4);
+            }
+        }
+    }
+
+}
